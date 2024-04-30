@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-@Table(name = "teacher")
+@Table(name = "teacher", schema = "DB_SCHEDULER")
 @PrimaryKeyJoinColumn(name = "application_user_id")
 @EqualsAndHashCode(callSuper = true)
 public class TeacherEntity extends UserEntity {

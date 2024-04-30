@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @AllArgsConstructor
-@Table(name = "application_user")
+@Table(name = "application_user", schema = "DB_SCHEDULER")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class UserEntity {
 

@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-@Table(name = "student")
+@Table(name = "student", schema = "DB_SCHEDULER")
 @PrimaryKeyJoinColumn(name = "application_user_id")
 public class StudentEntity extends UserEntity{
 

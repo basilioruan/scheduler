@@ -8,7 +8,7 @@ import lombok.Data;
 @Entity
 @Data
 @Builder
-@Table(name = "student_level")
+@Table(name = "student_level", schema = "DB_SCHEDULER")
 public class StudentLevelEntity {
 
     @Id
