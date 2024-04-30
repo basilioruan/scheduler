@@ -9,9 +9,8 @@ import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
 @Table(name = "student")
 @PrimaryKeyJoinColumn(name = "application_user_id")
 public class StudentEntity extends UserEntity{
@@ -28,6 +27,7 @@ public class StudentEntity extends UserEntity{
     @Column(name = "student_reschedules")
     private int reschedules;
 
+    @Builder
     public StudentEntity(Long id, @NotNull String name, @NotNull String phone, @NotNull String email,
                          String photo, @NotNull LocalDateTime creationDate, @NotNull LocalDateTime lastUpdateDate,
                          LocalDateTime lastLoginDate, StudentLevelEntity studentLevelEntity,

@@ -8,9 +8,8 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
 @Table(name = "teacher")
 @PrimaryKeyJoinColumn(name = "application_user_id")
 @EqualsAndHashCode(callSuper = true)
@@ -20,6 +19,7 @@ public class TeacherEntity extends UserEntity {
     @NotNull
     private SchoolSubjectIndicator schoolSubject;
 
+    @Builder
     public TeacherEntity(Long id, String name, String phone, String email,
                          String photo, LocalDateTime creationDate, LocalDateTime lastUpdateDate,
                          LocalDateTime lastLoginDate, SchoolSubjectIndicator schoolSubject) {
