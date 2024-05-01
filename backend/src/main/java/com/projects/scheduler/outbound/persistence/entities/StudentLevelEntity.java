@@ -2,12 +2,14 @@ package com.projects.scheduler.outbound.persistence.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 @Entity
-@Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 @Table(name = "student_level", schema = "DB_SCHEDULER")
 public class StudentLevelEntity {
 
