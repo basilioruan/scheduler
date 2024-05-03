@@ -22,17 +22,4 @@ public class StudentLevelRequestDTOMapper {
                 .build();
     }
 
-    public StudentLevelRequestDTO fromDomain(StudentLevel domain) {
-        if(Objects.isNull(domain)) {
-            return null;
-        }
-
-        return StudentLevelRequestDTO.builder()
-                .id(domain.getId())
-                .name(domain.getName())
-                .code(domain.getCode())
-                .description(domain.getDescription())
-                .build();
-    }
-
 }

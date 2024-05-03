@@ -36,7 +36,6 @@ public class StudentLevelAdapter implements StudentLevelOutPort {
 
     @Override
     public List<StudentLevel> findAll() {
-
         try {
             List<StudentLevelEntity> studentLevelEntities = this.studentLevelRepository.findAll();
             return studentLevelEntities.stream().map(this.studentLevelEntityMapper::fromEntity).toList();

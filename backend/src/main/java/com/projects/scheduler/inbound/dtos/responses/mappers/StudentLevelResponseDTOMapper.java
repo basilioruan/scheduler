@@ -9,19 +9,6 @@ import java.util.Objects;
 @Component
 public class StudentLevelResponseDTOMapper {
 
-    public StudentLevel fromDTO(StudentLevelResponseDTO dto) {
-        if(Objects.isNull(dto)) {
-            return null;
-        }
-
-        return StudentLevel.builder()
-                .id(dto.getId())
-                .name(dto.getName())
-                .code(dto.getCode())
-                .description(dto.getDescription())
-                .build();
-    }
-
     public StudentLevelResponseDTO fromDomain(StudentLevel domain) {
         if(Objects.isNull(domain)) {
             return null;
