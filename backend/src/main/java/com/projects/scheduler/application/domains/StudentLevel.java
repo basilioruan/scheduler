@@ -7,12 +7,12 @@ import lombok.Data;
 @Builder
 public class StudentLevel {
 
-    private Long id;
+	private Long id;
 
-    private String name;
+	private String name;
 
-    private String code;
+	private String code;
 
-    private String description;
+	private String description;
 
 }

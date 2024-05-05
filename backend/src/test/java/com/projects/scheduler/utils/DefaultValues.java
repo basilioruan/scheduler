@@ -1,9 +1,13 @@
 package com.projects.scheduler.utils;
 
-public class DefaultValues {
+public final class DefaultValues {
 
-    public static Long LONG_VALUE = 1L;
+	private DefaultValues() {
+		throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
+	}
 
-    public static String STRING_VALUE = "TESTE";
+	public static Long LONG_VALUE = 1L;
+
+	public static String STRING_VALUE = "TESTE";
 
 }

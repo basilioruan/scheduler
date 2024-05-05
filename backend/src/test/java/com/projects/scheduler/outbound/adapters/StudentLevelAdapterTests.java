@@ -1,5 +1,8 @@
 package com.projects.scheduler.outbound.adapters;
 
+import java.util.Collections;
+import java.util.List;
+
 import com.projects.scheduler.application.domains.StudentLevel;
 import com.projects.scheduler.mocks.StudentLevelMocks;
 import com.projects.scheduler.outbound.mappers.StudentLevelEntityMapper;
@@ -12,9 +15,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Collections;
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -24,89 +24,91 @@ import static org.mockito.Mockito.verify;
 @ExtendWith(MockitoExtension.class)
 class StudentLevelAdapterTests {
 
-    @InjectMocks
-    private StudentLevelAdapter studentLevelAdapter;
+	@InjectMocks
+	private StudentLevelAdapter studentLevelAdapter;
 
-    @Mock
-    private StudentLevelRepository studentLevelRepository;
+	@Mock
+	private StudentLevelRepository studentLevelRepository;
 
-    @Mock
-    private StudentLevelEntityMapper studentLevelEntityMapper;
+	@Mock
+	private StudentLevelEntityMapper studentLevelEntityMapper;
 
-    @Test
-    void findById_shouldReturnNull() {
-        StudentLevel actual = this.studentLevelAdapter.findById(null);
+	@Test
+	void findById_shouldReturnNull() {
+		StudentLevel actual = this.studentLevelAdapter.findById(null);
 
-        assertThat(actual).isNull();
-    }
+		assertThat(actual).isNull();
+	}
 
-    @Test
-    void findById_shouldReturnDomain() {
-        StudentLevel expected = StudentLevelMocks.getStudentLevelDomain();
+	@Test
+	void findById_shouldReturnDomain() {
+		StudentLevel expected = StudentLevelMocks.getStudentLevelDomain();
 
-        BDDMockito.when(this.studentLevelRepository.getReferenceById(anyLong())).thenReturn(StudentLevelMocks.getStudentLevelEntity());
-        BDDMockito.when(this.studentLevelEntityMapper.fromEntity(any())).thenCallRealMethod();
+		BDDMockito.when(this.studentLevelRepository.getReferenceById(anyLong()))
+			.thenReturn(StudentLevelMocks.getStudentLevelEntity());
+		BDDMockito.when(this.studentLevelEntityMapper.fromEntity(any())).thenCallRealMethod();
 
-        StudentLevel actual = this.studentLevelAdapter.findById(DefaultValues.LONG_VALUE);
+		StudentLevel actual = this.studentLevelAdapter.findById(DefaultValues.LONG_VALUE);
 
-        assertThat(actual).isNotNull();
-        assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
-    }
+		assertThat(actual).isNotNull();
+		assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
+	}
 
-    @Test
-    void findAll_shouldReturnEmptyList() {
-        BDDMockito.when(this.studentLevelRepository.findAll()).thenReturn(Collections.EMPTY_LIST);
+	@Test
+	void findAll_shouldReturnEmptyList() {
+		BDDMockito.when(this.studentLevelRepository.findAll()).thenReturn(Collections.EMPTY_LIST);
 
-        List<StudentLevel> actual = this.studentLevelAdapter.findAll();
+		List<StudentLevel> actual = this.studentLevelAdapter.findAll();
 
-        assertThat(actual).isEmpty();
-    }
+		assertThat(actual).isEmpty();
+	}
 
-    @Test
-    void findAll_shouldReturnDomainList() {
-        List<StudentLevel> expected = List.of(StudentLevelMocks.getStudentLevelDomain());
+	@Test
+	void findAll_shouldReturnDomainList() {
+		List<StudentLevel> expected = List.of(StudentLevelMocks.getStudentLevelDomain());
 
-        BDDMockito.when(this.studentLevelRepository.findAll()).thenReturn(List.of(StudentLevelMocks.getStudentLevelEntity()));
-        BDDMockito.when(this.studentLevelEntityMapper.fromEntity(any())).thenCallRealMethod();
+		BDDMockito.when(this.studentLevelRepository.findAll())
+			.thenReturn(List.of(StudentLevelMocks.getStudentLevelEntity()));
+		BDDMockito.when(this.studentLevelEntityMapper.fromEntity(any())).thenCallRealMethod();
 
-        List<StudentLevel> actual = this.studentLevelAdapter.findAll();
+		List<StudentLevel> actual = this.studentLevelAdapter.findAll();
 
-        assertThat(actual).isNotEmpty();
-        assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
-    }
+		assertThat(actual).isNotEmpty();
+		assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
+	}
 
-    @Test
-    void save_shouldReturnNull() {
-        StudentLevel actual = this.studentLevelAdapter.save(null);
+	@Test
+	void save_shouldReturnNull() {
+		StudentLevel actual = this.studentLevelAdapter.save(null);
 
-        assertThat(actual).isNull();
-    }
+		assertThat(actual).isNull();
+	}
 
-    @Test
-    void save_shouldReturnSavedDomain() {
-        StudentLevel expected = StudentLevelMocks.getStudentLevelDomain();
+	@Test
+	void save_shouldReturnSavedDomain() {
+		StudentLevel expected = StudentLevelMocks.getStudentLevelDomain();
 
-        BDDMockito.when(this.studentLevelRepository.save(any())).thenReturn(StudentLevelMocks.getStudentLevelEntity());
-        BDDMockito.when(this.studentLevelEntityMapper.fromEntity(any())).thenCallRealMethod();
+		BDDMockito.when(this.studentLevelRepository.save(any())).thenReturn(StudentLevelMocks.getStudentLevelEntity());
+		BDDMockito.when(this.studentLevelEntityMapper.fromEntity(any())).thenCallRealMethod();
 
-        StudentLevel actual = this.studentLevelAdapter.save(StudentLevelMocks.getStudentLevelDomain());
+		StudentLevel actual = this.studentLevelAdapter.save(StudentLevelMocks.getStudentLevelDomain());
 
-        assertThat(actual).isNotNull();
-        assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
-    }
+		assertThat(actual).isNotNull();
+		assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
+	}
 
-    @Test
-    void deleteById_shouldNotCallRepositoryDelete() {
-        this.studentLevelAdapter.deleteById(null);
+	@Test
+	void deleteById_shouldNotCallRepositoryDelete() {
+		this.studentLevelAdapter.deleteById(null);
 
-        verify(this.studentLevelRepository, times(0)).deleteById(anyLong());
-    }
+		verify(this.studentLevelRepository, times(0)).deleteById(anyLong());
+	}
 
-    @Test
-    void deleteById_shouldCallRepositoryDelete() {
-        this.studentLevelAdapter.deleteById(DefaultValues.LONG_VALUE);
+	@Test
+	void deleteById_shouldCallRepositoryDelete() {
+		this.studentLevelAdapter.deleteById(DefaultValues.LONG_VALUE);
 
-        verify(this.studentLevelRepository, times(1)).deleteById(anyLong());
-    }
+		verify(this.studentLevelRepository, times(1)).deleteById(anyLong());
+	}
 
 }

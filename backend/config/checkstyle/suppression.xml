@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+        "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+<suppressions>
+    <suppress checks="SpringHeaderCheck"
+              files=".java"/>
+    <suppress checks="SpringLambda"
+              files=".java"/>
+    <suppress checks="Header"
+              files=".*package-info.java"/>
+    <suppress checks="JavadocVariable"
+              files=".java"/>
+    <suppress checks="JavadocMethod"
+              files=".java"/>
+    <suppress checks="JavadocType"
+              files=".java"/>
+    <suppress checks="JavadocPackage"
+              files=".java"/>
+    <suppress checks="JavadocStyle"
+              files=".java"/>
+</suppressions>

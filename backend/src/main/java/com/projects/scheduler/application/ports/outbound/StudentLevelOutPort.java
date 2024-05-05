@@ -1,17 +1,17 @@
 package com.projects.scheduler.application.ports.outbound;
 
-import com.projects.scheduler.application.domains.StudentLevel;
-
 import java.util.List;
+
+import com.projects.scheduler.application.domains.StudentLevel;
 
 public interface StudentLevelOutPort {
 
-    StudentLevel findById(Long id);
+	StudentLevel findById(Long id);
 
-    List<StudentLevel> findAll();
+	List<StudentLevel> findAll();
 
-    StudentLevel save(StudentLevel studentLevel);
+	StudentLevel save(StudentLevel studentLevel);
 
-    void deleteById(Long id);
+	void deleteById(Long id);
 
 }

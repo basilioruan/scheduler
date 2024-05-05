@@ -12,23 +12,24 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(MockitoExtension.class)
 class StudentLevelResponseDTOMapperTests {
 
-    @InjectMocks
-    private StudentLevelResponseDTOMapper StudentLevelResponseDTOMapper;
+	@InjectMocks
+	private StudentLevelResponseDTOMapper StudentLevelResponseDTOMapper;
 
-    @Test
-    void fromDTO_shouldReturnNull() {
-        StudentLevelResponseDTO actual = this.StudentLevelResponseDTOMapper.fromDomain(null);
+	@Test
+	void fromDTO_shouldReturnNull() {
+		StudentLevelResponseDTO actual = this.StudentLevelResponseDTOMapper.fromDomain(null);
 
-        assertThat(actual).isNull();
-    }
+		assertThat(actual).isNull();
+	}
 
-    @Test
-    void fromDTO_shouldReturnDomain() {
-        StudentLevelResponseDTO expected = StudentLevelMocks.getStudentLevelResponseDTO();
+	@Test
+	void fromDTO_shouldReturnDomain() {
+		StudentLevelResponseDTO expected = StudentLevelMocks.getStudentLevelResponseDTO();
 
-        StudentLevelResponseDTO actual = this.StudentLevelResponseDTOMapper.fromDomain(StudentLevelMocks.getStudentLevelDomain());
+		StudentLevelResponseDTO actual = this.StudentLevelResponseDTOMapper
+			.fromDomain(StudentLevelMocks.getStudentLevelDomain());
 
-        assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
-    }
+		assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
+	}
 
 }
