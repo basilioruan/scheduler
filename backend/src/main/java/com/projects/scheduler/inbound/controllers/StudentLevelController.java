@@ -7,6 +7,8 @@ import com.projects.scheduler.inbound.dtos.requests.StudentLevelRequestDTO;
 import com.projects.scheduler.inbound.dtos.responses.StudentLevelResponseDTO;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,23 +25,24 @@ public class StudentLevelController {
 	private final StudentLevelInPort studentLevelInPort;
 
 	@GetMapping("/find/{id}")
-	public StudentLevelResponseDTO findById(@PathVariable Long id) {
-		return this.studentLevelInPort.findById(id);
+	public ResponseEntity<StudentLevelResponseDTO> findById(@PathVariable Long id) {
+		return ResponseEntity.ok(this.studentLevelInPort.findById(id));
 	}
 
 	@GetMapping("/find-all")
-	public List<StudentLevelResponseDTO> findAll() {
-		return this.studentLevelInPort.findAll();
+	public ResponseEntity<List<StudentLevelResponseDTO>> findAll() {
+		return ResponseEntity.ok(this.studentLevelInPort.findAll());
 	}
 
 	@PostMapping("/save")
-	public StudentLevelResponseDTO save(@RequestBody StudentLevelRequestDTO requestDTO) {
-		return this.studentLevelInPort.save(requestDTO);
+	public ResponseEntity<StudentLevelResponseDTO> save(@RequestBody StudentLevelRequestDTO requestDTO) {
+		return new ResponseEntity<>(this.studentLevelInPort.save(requestDTO), HttpStatus.CREATED);
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public void delete(@PathVariable Long id) {
+	public ResponseEntity<String> delete(@PathVariable Long id) {
 		this.studentLevelInPort.deleteById(id);
+		return ResponseEntity.ok("Student level deleted!");
 	}
 
 }
