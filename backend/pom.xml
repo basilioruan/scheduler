@@ -14,7 +14,7 @@
 	<name>scheduler</name>
 	<description>Scheduler project</description>
 	<properties>
-		<java.version>21</java.version>
+		<java.version>17</java.version>
 		<sonar.organization>basilioruan</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
