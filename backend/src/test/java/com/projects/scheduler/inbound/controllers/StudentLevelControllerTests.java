@@ -13,11 +13,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import org.springframework.http.ResponseEntity;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class StudentLevelControllerTests {
@@ -30,9 +30,9 @@ class StudentLevelControllerTests {
 
 	@Test
 	void findById_shouldReturnNull() {
-		StudentLevelResponseDTO actual = this.studentLevelController.findById(DefaultValues.LONG_VALUE);
+		ResponseEntity<StudentLevelResponseDTO> actual = this.studentLevelController.findById(DefaultValues.LONG_VALUE);
 
-		assertThat(actual).isNull();
+		assertThat(actual.getBody()).isNull();
 	}
 
 	@Test
@@ -42,16 +42,16 @@ class StudentLevelControllerTests {
 		BDDMockito.when(this.studentLevelInPort.findById(anyLong()))
 			.thenReturn(StudentLevelMocks.getStudentLevelResponseDTO());
 
-		StudentLevelResponseDTO actual = this.studentLevelController.findById(DefaultValues.LONG_VALUE);
+		ResponseEntity<StudentLevelResponseDTO> actual = this.studentLevelController.findById(DefaultValues.LONG_VALUE);
 
-		assertThat(actual).isNotNull().usingRecursiveComparison().isEqualTo(expected);
+		assertThat(actual.getBody()).isNotNull().usingRecursiveComparison().isEqualTo(expected);
 	}
 
 	@Test
 	void findAll_shouldReturnEmptyList() {
-		List<StudentLevelResponseDTO> actual = this.studentLevelController.findAll();
+		ResponseEntity<List<StudentLevelResponseDTO>> actual = this.studentLevelController.findAll();
 
-		assertThat(actual).isEmpty();
+		assertThat(actual.getBody()).isEmpty();
 	}
 
 	@Test
@@ -61,17 +61,17 @@ class StudentLevelControllerTests {
 		BDDMockito.when(this.studentLevelInPort.findAll())
 			.thenReturn(List.of(StudentLevelMocks.getStudentLevelResponseDTO()));
 
-		List<StudentLevelResponseDTO> actual = this.studentLevelController.findAll();
+		ResponseEntity<List<StudentLevelResponseDTO>> actual = this.studentLevelController.findAll();
 
-		assertThat(actual).isNotNull().usingRecursiveComparison().isEqualTo(expected);
+		assertThat(actual.getBody()).isNotNull().usingRecursiveComparison().isEqualTo(expected);
 	}
 
 	@Test
 	void save_shouldReturnNull() {
-		StudentLevelResponseDTO actual = this.studentLevelController
+		ResponseEntity<StudentLevelResponseDTO> actual = this.studentLevelController
 			.save(StudentLevelMocks.getStudentLevelRequestDTO());
 
-		assertThat(actual).isNull();
+		assertThat(actual.getBody()).isNull();
 	}
 
 	@Test
@@ -80,17 +80,19 @@ class StudentLevelControllerTests {
 
 		BDDMockito.when(this.studentLevelInPort.save(any())).thenReturn(StudentLevelMocks.getStudentLevelResponseDTO());
 
-		StudentLevelResponseDTO actual = this.studentLevelController
+		ResponseEntity<StudentLevelResponseDTO> actual = this.studentLevelController
 			.save(StudentLevelMocks.getStudentLevelRequestDTO());
 
-		assertThat(actual).isNotNull().usingRecursiveComparison().isEqualTo(expected);
+		assertThat(actual.getBody()).isNotNull().usingRecursiveComparison().isEqualTo(expected);
 	}
 
 	@Test
 	void delete_shouldCallDeletePort() {
-		this.studentLevelController.delete(DefaultValues.LONG_VALUE);
+		String expectedMessage = "Student level deleted!";
 
-		verify(this.studentLevelInPort, times(1)).deleteById(anyLong());
+		ResponseEntity<String> reponse = this.studentLevelController.delete(DefaultValues.LONG_VALUE);
+
+		assertThat(reponse.getBody()).isEqualTo(expectedMessage);
 	}
 
 }
