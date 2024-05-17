@@ -5,6 +5,7 @@ import java.util.List;
 import com.projects.scheduler.application.ports.inbound.StudentLevelInPort;
 import com.projects.scheduler.inbound.dtos.requests.StudentLevelRequestDTO;
 import com.projects.scheduler.inbound.dtos.responses.StudentLevelResponseDTO;
+import com.projects.scheduler.utils.exceptions.SchedularRuntimeException;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
@@ -26,23 +27,43 @@ public class StudentLevelController {
 
 	@GetMapping("/find/{id}")
 	public ResponseEntity<StudentLevelResponseDTO> findById(@PathVariable Long id) {
-		return ResponseEntity.ok(this.studentLevelInPort.findById(id));
+		try {
+			return ResponseEntity.ok(this.studentLevelInPort.findById(id));
+		}
+		catch (SchedularRuntimeException ex) {
+			return ResponseEntity.internalServerError().build();
+		}
 	}
 
 	@GetMapping("/find-all")
 	public ResponseEntity<List<StudentLevelResponseDTO>> findAll() {
-		return ResponseEntity.ok(this.studentLevelInPort.findAll());
+		try {
+			return ResponseEntity.ok(this.studentLevelInPort.findAll());
+		}
+		catch (SchedularRuntimeException ex) {
+			return ResponseEntity.internalServerError().build();
+		}
 	}
 
 	@PostMapping("/save")
 	public ResponseEntity<StudentLevelResponseDTO> save(@RequestBody StudentLevelRequestDTO requestDTO) {
-		return new ResponseEntity<>(this.studentLevelInPort.save(requestDTO), HttpStatus.CREATED);
+		try {
+			return new ResponseEntity<>(this.studentLevelInPort.save(requestDTO), HttpStatus.CREATED);
+		}
+		catch (SchedularRuntimeException ex) {
+			return ResponseEntity.internalServerError().build();
+		}
 	}
 
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> delete(@PathVariable Long id) {
-		this.studentLevelInPort.deleteById(id);
-		return ResponseEntity.ok("Student level deleted!");
+		try {
+			this.studentLevelInPort.deleteById(id);
+			return ResponseEntity.ok("Student level deleted!");
+		}
+		catch (SchedularRuntimeException ex) {
+			return ResponseEntity.internalServerError().build();
+		}
 	}
 
 }
