@@ -37,14 +37,20 @@ public class StudentEntity extends UserEntity {
 	@Column(name = "student_reschedules")
 	private int reschedules;
 
+	@ManyToOne
+	@JoinColumn(name = "student_teacher")
+	private TeacherEntity teacher;
+
 	@Builder
 	public StudentEntity(Long id, @NotNull String name, @NotNull String phone, @NotNull String email, String photo,
-						 @NotNull LocalDateTime creationDate, @NotNull LocalDateTime lastUpdateDate, LocalDateTime lastLoginDate,
-						 StudentLevelEntity studentLevel, @NotNull ClassTypeIndicator classType, int reschedules) {
+			@NotNull LocalDateTime creationDate, @NotNull LocalDateTime lastUpdateDate, LocalDateTime lastLoginDate,
+			StudentLevelEntity studentLevel, @NotNull ClassTypeIndicator classType, int reschedules,
+			TeacherEntity teacher) {
 		super(id, name, phone, email, photo, creationDate, lastUpdateDate, lastLoginDate);
 		this.studentLevel = studentLevel;
 		this.classType = classType;
 		this.reschedules = reschedules;
+		this.teacher = teacher;
 	}
 
 }
