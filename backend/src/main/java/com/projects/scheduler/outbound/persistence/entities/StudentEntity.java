@@ -27,7 +27,7 @@ public class StudentEntity extends UserEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "student_level_id")
-	private StudentLevelEntity studentLevelEntity;
+	private StudentLevelEntity studentLevel;
 
 	@Column(name = "student_class_type")
 	@NotNull
@@ -39,10 +39,10 @@ public class StudentEntity extends UserEntity {
 
 	@Builder
 	public StudentEntity(Long id, @NotNull String name, @NotNull String phone, @NotNull String email, String photo,
-			@NotNull LocalDateTime creationDate, @NotNull LocalDateTime lastUpdateDate, LocalDateTime lastLoginDate,
-			StudentLevelEntity studentLevelEntity, @NotNull ClassTypeIndicator classType, int reschedules) {
+						 @NotNull LocalDateTime creationDate, @NotNull LocalDateTime lastUpdateDate, LocalDateTime lastLoginDate,
+						 StudentLevelEntity studentLevel, @NotNull ClassTypeIndicator classType, int reschedules) {
 		super(id, name, phone, email, photo, creationDate, lastUpdateDate, lastLoginDate);
-		this.studentLevelEntity = studentLevelEntity;
+		this.studentLevel = studentLevel;
 		this.classType = classType;
 		this.reschedules = reschedules;
 	}
