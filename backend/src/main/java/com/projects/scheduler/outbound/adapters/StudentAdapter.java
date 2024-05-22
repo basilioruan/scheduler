@@ -19,7 +19,7 @@ public class StudentAdapter implements StudentOutPort {
 	private final StudentEntityMapper studentEntityMapper;
 
 	@Override
-	public Student findById(Long id) throws SchedularRuntimeException {
+	public Student findById(Long id) {
 		try {
 			return this.studentEntityMapper.fromEntity(this.studentRepository.getReferenceById(id));
 		}

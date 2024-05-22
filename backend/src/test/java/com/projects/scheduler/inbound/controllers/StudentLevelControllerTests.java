@@ -39,7 +39,7 @@ class StudentLevelControllerTests {
 	}
 
 	@Test
-	void findById_shouldReturnResponseDTO() throws SchedularRuntimeException {
+	void findById_shouldReturnResponseDTO() {
 		StudentLevelResponseDTO expected = StudentLevelMocks.getStudentLevelResponseDTO();
 
 		BDDMockito.when(this.studentLevelInPort.findById(anyLong()))
@@ -51,7 +51,7 @@ class StudentLevelControllerTests {
 	}
 
 	@Test
-	void findById_shouldReturnInternalServerError() throws SchedularRuntimeException {
+	void findById_shouldReturnInternalServerError() {
 		BDDMockito.when(this.studentLevelInPort.findById(anyLong())).thenThrow(new SchedularRuntimeException("error"));
 
 		ResponseEntity<StudentLevelResponseDTO> actual = this.studentLevelController.findById(DefaultValues.LONG_VALUE);
@@ -67,7 +67,7 @@ class StudentLevelControllerTests {
 	}
 
 	@Test
-	void findAll_shouldReturnResponseDTOList() throws SchedularRuntimeException {
+	void findAll_shouldReturnResponseDTOList() {
 		List<StudentLevelResponseDTO> expected = List.of(StudentLevelMocks.getStudentLevelResponseDTO());
 
 		BDDMockito.when(this.studentLevelInPort.findAll())
@@ -79,7 +79,7 @@ class StudentLevelControllerTests {
 	}
 
 	@Test
-	void findAll_shouldReturnInternalServerError() throws SchedularRuntimeException {
+	void findAll_shouldReturnInternalServerError() {
 		BDDMockito.when(this.studentLevelInPort.findAll()).thenThrow(new SchedularRuntimeException("error"));
 
 		ResponseEntity<List<StudentLevelResponseDTO>> actual = this.studentLevelController.findAll();
@@ -96,7 +96,7 @@ class StudentLevelControllerTests {
 	}
 
 	@Test
-	void save_shouldReturnResponseDTO() throws SchedularRuntimeException {
+	void save_shouldReturnResponseDTO() {
 		StudentLevelResponseDTO expected = StudentLevelMocks.getStudentLevelResponseDTO();
 
 		BDDMockito.when(this.studentLevelInPort.save(any())).thenReturn(StudentLevelMocks.getStudentLevelResponseDTO());
@@ -108,7 +108,7 @@ class StudentLevelControllerTests {
 	}
 
 	@Test
-	void save_shouldReturnInternalServerError() throws SchedularRuntimeException {
+	void save_shouldReturnInternalServerError() {
 		BDDMockito.when(this.studentLevelInPort.save(any())).thenThrow(new SchedularRuntimeException("error"));
 
 		ResponseEntity<StudentLevelResponseDTO> actual = this.studentLevelController
@@ -127,7 +127,7 @@ class StudentLevelControllerTests {
 	}
 
 	@Test
-	void delete_shouldReturnInternalServerError() throws SchedularRuntimeException {
+	void delete_shouldReturnInternalServerError() {
 		Mockito.doThrow(new SchedularRuntimeException("error")).when(this.studentLevelInPort).deleteById(anyLong());
 		ResponseEntity<String> reponse = this.studentLevelController.delete(DefaultValues.LONG_VALUE);
 

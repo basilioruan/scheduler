@@ -9,7 +9,6 @@ import com.projects.scheduler.inbound.dtos.responses.StudentLevelResponseDTO;
 import com.projects.scheduler.inbound.dtos.responses.mappers.StudentLevelResponseDTOMapper;
 import com.projects.scheduler.mocks.StudentLevelMocks;
 import com.projects.scheduler.utils.DefaultValues;
-import com.projects.scheduler.utils.exceptions.SchedularRuntimeException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
@@ -39,7 +38,7 @@ class StudentLevelUseCaseTests {
 	private StudentLevelResponseDTOMapper studentLevelResponseDTOMapper;
 
 	@Test
-	void findById_shouldReturnNull() throws SchedularRuntimeException {
+	void findById_shouldReturnNull() {
 		BDDMockito.when(this.studentLevelOutPort.findById(anyLong())).thenReturn(null);
 
 		StudentLevelResponseDTO actual = this.studentLevelUseCase.findById(DefaultValues.LONG_VALUE);
@@ -48,7 +47,7 @@ class StudentLevelUseCaseTests {
 	}
 
 	@Test
-	void findById_shouldReturnResponseDTO() throws SchedularRuntimeException {
+	void findById_shouldReturnResponseDTO() {
 		StudentLevelResponseDTO expected = StudentLevelMocks.getStudentLevelResponseDTO();
 
 		BDDMockito.when(this.studentLevelOutPort.findById(anyLong()))
@@ -62,7 +61,7 @@ class StudentLevelUseCaseTests {
 	}
 
 	@Test
-	void findAll_shouldReturnEmptyList() throws SchedularRuntimeException {
+	void findAll_shouldReturnEmptyList() {
 		BDDMockito.when(this.studentLevelOutPort.findAll()).thenReturn(Collections.emptyList());
 
 		List<StudentLevelResponseDTO> actual = this.studentLevelUseCase.findAll();
@@ -71,7 +70,7 @@ class StudentLevelUseCaseTests {
 	}
 
 	@Test
-	void findAll_shouldReturnResponseDTOList() throws SchedularRuntimeException {
+	void findAll_shouldReturnResponseDTOList() {
 		List<StudentLevelResponseDTO> expected = List.of(StudentLevelMocks.getStudentLevelResponseDTO());
 
 		BDDMockito.when(this.studentLevelOutPort.findAll())
@@ -85,7 +84,7 @@ class StudentLevelUseCaseTests {
 	}
 
 	@Test
-	void save_shouldReturnNull() throws SchedularRuntimeException {
+	void save_shouldReturnNull() {
 		BDDMockito.when(this.studentLevelOutPort.save(any())).thenReturn(null);
 
 		StudentLevelResponseDTO actual = this.studentLevelUseCase.save(StudentLevelMocks.getStudentLevelRequestDTO());
@@ -95,7 +94,7 @@ class StudentLevelUseCaseTests {
 	}
 
 	@Test
-	void save_shouldReturnResponseDTO() throws SchedularRuntimeException {
+	void save_shouldReturnResponseDTO() {
 		StudentLevelResponseDTO expected = StudentLevelMocks.getStudentLevelResponseDTO();
 
 		BDDMockito.when(this.studentLevelOutPort.save(any())).thenReturn(StudentLevelMocks.getStudentLevelDomain());
@@ -109,7 +108,7 @@ class StudentLevelUseCaseTests {
 	}
 
 	@Test
-	void deleteById_shouldDelete() throws SchedularRuntimeException {
+	void deleteById_shouldDelete() {
 		this.studentLevelUseCase.deleteById(DefaultValues.LONG_VALUE);
 
 		verify(this.studentLevelOutPort, times(1)).deleteById(anyLong());

@@ -9,7 +9,6 @@ import com.projects.scheduler.inbound.dtos.requests.StudentLevelRequestDTO;
 import com.projects.scheduler.inbound.dtos.requests.mappers.StudentLevelRequestDTOMapper;
 import com.projects.scheduler.inbound.dtos.responses.StudentLevelResponseDTO;
 import com.projects.scheduler.inbound.dtos.responses.mappers.StudentLevelResponseDTOMapper;
-import com.projects.scheduler.utils.exceptions.SchedularRuntimeException;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
@@ -25,27 +24,26 @@ public class StudentLevelUseCase implements StudentLevelInPort {
 	private final StudentLevelResponseDTOMapper studentLevelResponseDTOMapper;
 
 	@Override
-	public StudentLevelResponseDTO findById(Long id) throws SchedularRuntimeException {
+	public StudentLevelResponseDTO findById(Long id) {
 		StudentLevel studentLevel = this.studentLevelOutPort.findById(id);
 		return this.studentLevelResponseDTOMapper.fromDomain(studentLevel);
 	}
 
 	@Override
-	public List<StudentLevelResponseDTO> findAll() throws SchedularRuntimeException {
+	public List<StudentLevelResponseDTO> findAll() {
 		List<StudentLevel> studentLevels = this.studentLevelOutPort.findAll();
 		return studentLevels.stream().map(this.studentLevelResponseDTOMapper::fromDomain).toList();
 	}
 
 	@Override
-	public StudentLevelResponseDTO save(StudentLevelRequestDTO studentLevelRequestDTO)
-			throws SchedularRuntimeException {
+	public StudentLevelResponseDTO save(StudentLevelRequestDTO studentLevelRequestDTO) {
 		StudentLevel studentLevelDomain = this.studentLevelRequestDTOMapper.fromDTO(studentLevelRequestDTO);
 		StudentLevel studentLevelSaved = this.studentLevelOutPort.save(studentLevelDomain);
 		return this.studentLevelResponseDTOMapper.fromDomain(studentLevelSaved);
 	}
 
 	@Override
-	public void deleteById(Long id) throws SchedularRuntimeException {
+	public void deleteById(Long id) {
 		this.studentLevelOutPort.deleteById(id);
 	}
 

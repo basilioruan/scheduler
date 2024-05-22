@@ -23,7 +23,7 @@ public class StudentLevelAdapter implements StudentLevelOutPort {
 	private final StudentLevelEntityMapper studentLevelEntityMapper;
 
 	@Override
-	public StudentLevel findById(Long id) throws SchedularRuntimeException {
+	public StudentLevel findById(Long id) {
 		if (Objects.isNull(id)) {
 			return null;
 		}
@@ -42,7 +42,7 @@ public class StudentLevelAdapter implements StudentLevelOutPort {
 	}
 
 	@Override
-	public List<StudentLevel> findAll() throws SchedularRuntimeException {
+	public List<StudentLevel> findAll() {
 		try {
 			List<StudentLevelEntity> studentLevelEntities = this.studentLevelRepository.findAll();
 			return studentLevelEntities.stream().map(this.studentLevelEntityMapper::fromEntity).toList();
@@ -53,7 +53,7 @@ public class StudentLevelAdapter implements StudentLevelOutPort {
 	}
 
 	@Override
-	public StudentLevel save(StudentLevel studentLevel) throws SchedularRuntimeException {
+	public StudentLevel save(StudentLevel studentLevel) {
 		if (Objects.isNull(studentLevel)) {
 			return null;
 		}
@@ -70,7 +70,7 @@ public class StudentLevelAdapter implements StudentLevelOutPort {
 	}
 
 	@Override
-	public void deleteById(Long id) throws SchedularRuntimeException {
+	public void deleteById(Long id) {
 		if (Objects.isNull(id)) {
 			return;
 		}

@@ -8,7 +8,6 @@ import com.projects.scheduler.mocks.StudentLevelMocks;
 import com.projects.scheduler.outbound.mappers.StudentLevelEntityMapper;
 import com.projects.scheduler.outbound.persistence.repositories.StudentLevelRepository;
 import com.projects.scheduler.utils.DefaultValues;
-import com.projects.scheduler.utils.exceptions.SchedularRuntimeException;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,14 +35,14 @@ class StudentLevelAdapterTests {
 	private StudentLevelEntityMapper studentLevelEntityMapper;
 
 	@Test
-	void findById_shouldReturnNull() throws SchedularRuntimeException {
+	void findById_shouldReturnNull() {
 		StudentLevel actual = this.studentLevelAdapter.findById(null);
 
 		assertThat(actual).isNull();
 	}
 
 	@Test
-	void findById_shouldReturnDomain() throws SchedularRuntimeException {
+	void findById_shouldReturnDomain() {
 		StudentLevel expected = StudentLevelMocks.getStudentLevelDomain();
 
 		BDDMockito.when(this.studentLevelRepository.getReferenceById(anyLong()))
@@ -57,7 +56,7 @@ class StudentLevelAdapterTests {
 	}
 
 	@Test
-	void findById_shouldReturnNull_whenNotFindObject() throws SchedularRuntimeException {
+	void findById_shouldReturnNull_whenNotFindObject() {
 		BDDMockito.when(this.studentLevelRepository.getReferenceById(anyLong()))
 			.thenThrow(new EntityNotFoundException());
 
@@ -67,7 +66,7 @@ class StudentLevelAdapterTests {
 	}
 
 	@Test
-	void findAll_shouldReturnEmptyList() throws SchedularRuntimeException {
+	void findAll_shouldReturnEmptyList() {
 		BDDMockito.when(this.studentLevelRepository.findAll()).thenReturn(Collections.emptyList());
 
 		List<StudentLevel> actual = this.studentLevelAdapter.findAll();
@@ -76,7 +75,7 @@ class StudentLevelAdapterTests {
 	}
 
 	@Test
-	void findAll_shouldReturnDomainList() throws SchedularRuntimeException {
+	void findAll_shouldReturnDomainList() {
 		List<StudentLevel> expected = List.of(StudentLevelMocks.getStudentLevelDomain());
 
 		BDDMockito.when(this.studentLevelRepository.findAll())
@@ -90,14 +89,14 @@ class StudentLevelAdapterTests {
 	}
 
 	@Test
-	void save_shouldReturnNull() throws SchedularRuntimeException {
+	void save_shouldReturnNull() {
 		StudentLevel actual = this.studentLevelAdapter.save(null);
 
 		assertThat(actual).isNull();
 	}
 
 	@Test
-	void save_shouldReturnSavedDomain() throws SchedularRuntimeException {
+	void save_shouldReturnSavedDomain() {
 		StudentLevel expected = StudentLevelMocks.getStudentLevelDomain();
 
 		BDDMockito.when(this.studentLevelRepository.save(any())).thenReturn(StudentLevelMocks.getStudentLevelEntity());
@@ -110,14 +109,14 @@ class StudentLevelAdapterTests {
 	}
 
 	@Test
-	void deleteById_shouldNotCallRepositoryDelete() throws SchedularRuntimeException {
+	void deleteById_shouldNotCallRepositoryDelete() {
 		this.studentLevelAdapter.deleteById(null);
 
 		verify(this.studentLevelRepository, times(0)).deleteById(anyLong());
 	}
 
 	@Test
-	void deleteById_shouldCallRepositoryDelete() throws SchedularRuntimeException {
+	void deleteById_shouldCallRepositoryDelete() {
 		this.studentLevelAdapter.deleteById(DefaultValues.LONG_VALUE);
 
 		verify(this.studentLevelRepository, times(1)).deleteById(anyLong());

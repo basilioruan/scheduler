@@ -1,6 +1,6 @@
 package com.projects.scheduler.utils.exceptions;
 
-public class SchedularRuntimeException extends Exception {
+public class SchedularRuntimeException extends RuntimeException {
 
 	public SchedularRuntimeException(String message) {
 		super(message);
