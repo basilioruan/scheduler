@@ -1,7 +1,5 @@
 package com.projects.scheduler.outbound.persistence.entities;
 
-import java.time.LocalDateTime;
-
 import com.projects.scheduler.utils.enums.ClassTypeIndicator;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,17 +10,16 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Getter
-@Setter
+@Data
 @Table(name = "student", schema = "DB_SCHEDULER")
 @PrimaryKeyJoinColumn(name = "application_user_id")
+@SuperBuilder
 public class StudentEntity extends UserEntity {
 
 	@ManyToOne
@@ -37,20 +34,8 @@ public class StudentEntity extends UserEntity {
 	@Column(name = "student_reschedules")
 	private int reschedules;
 
-	@ManyToOne
-	@JoinColumn(name = "student_teacher")
-	private TeacherEntity teacher;
-
-	@Builder
-	public StudentEntity(Long id, @NotNull String name, @NotNull String phone, @NotNull String email, String photo,
-			@NotNull LocalDateTime creationDate, @NotNull LocalDateTime lastUpdateDate, LocalDateTime lastLoginDate,
-			StudentLevelEntity studentLevel, @NotNull ClassTypeIndicator classType, int reschedules,
-			TeacherEntity teacher) {
-		super(id, name, phone, email, photo, creationDate, lastUpdateDate, lastLoginDate);
-		this.studentLevel = studentLevel;
-		this.classType = classType;
-		this.reschedules = reschedules;
-		this.teacher = teacher;
+	public StudentEntity() {
+		super();
 	}
 
 }

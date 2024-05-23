@@ -13,12 +13,14 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Data
 @AllArgsConstructor
 @Table(name = "application_user", schema = "DB_SCHEDULER")
 @Inheritance(strategy = InheritanceType.JOINED)
+@SuperBuilder
 public class UserEntity {
 
 	@Id
@@ -51,5 +53,7 @@ public class UserEntity {
 
 	@Column(name = "application_user_last_login_date")
 	private LocalDateTime lastLoginDate;
+
+	public UserEntity() {}
 
 }
