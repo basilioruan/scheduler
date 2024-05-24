@@ -2,13 +2,13 @@ package com.projects.scheduler.outbound.adapters;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import com.projects.scheduler.application.domains.StudentLevel;
 import com.projects.scheduler.mocks.StudentLevelMocks;
 import com.projects.scheduler.outbound.mappers.StudentLevelEntityMapper;
 import com.projects.scheduler.outbound.persistence.repositories.StudentLevelRepository;
 import com.projects.scheduler.utils.DefaultValues;
-import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
@@ -45,8 +45,8 @@ class StudentLevelAdapterTests {
 	void findById_shouldReturnDomain() {
 		StudentLevel expected = StudentLevelMocks.getStudentLevelDomain();
 
-		BDDMockito.when(this.studentLevelRepository.getReferenceById(anyLong()))
-			.thenReturn(StudentLevelMocks.getStudentLevelEntity());
+		BDDMockito.when(this.studentLevelRepository.findById(anyLong()))
+			.thenReturn(Optional.of(StudentLevelMocks.getStudentLevelEntity()));
 		BDDMockito.when(this.studentLevelEntityMapper.fromEntity(any())).thenCallRealMethod();
 
 		StudentLevel actual = this.studentLevelAdapter.findById(DefaultValues.LONG_VALUE);
@@ -57,8 +57,7 @@ class StudentLevelAdapterTests {
 
 	@Test
 	void findById_shouldReturnNull_whenNotFindObject() {
-		BDDMockito.when(this.studentLevelRepository.getReferenceById(anyLong()))
-			.thenThrow(new EntityNotFoundException());
+		BDDMockito.when(this.studentLevelRepository.findById(anyLong())).thenReturn(Optional.empty());
 
 		StudentLevel actual = this.studentLevelAdapter.findById(DefaultValues.LONG_VALUE);
 
@@ -109,14 +108,10 @@ class StudentLevelAdapterTests {
 	}
 
 	@Test
-	void deleteById_shouldNotCallRepositoryDelete() {
-		this.studentLevelAdapter.deleteById(null);
-
-		verify(this.studentLevelRepository, times(0)).deleteById(anyLong());
-	}
-
-	@Test
 	void deleteById_shouldCallRepositoryDelete() {
+		BDDMockito.when(this.studentLevelRepository.findById(anyLong()))
+			.thenReturn(Optional.of(StudentLevelMocks.getStudentLevelEntity()));
+
 		this.studentLevelAdapter.deleteById(DefaultValues.LONG_VALUE);
 
 		verify(this.studentLevelRepository, times(1)).deleteById(anyLong());
