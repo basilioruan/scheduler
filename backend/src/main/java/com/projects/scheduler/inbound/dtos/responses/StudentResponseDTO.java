@@ -6,8 +6,10 @@ import com.projects.scheduler.inbound.dtos.UserDTO;
 import com.projects.scheduler.utils.enums.ClassTypeIndicator;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @SuperBuilder
 public class StudentResponseDTO extends UserDTO {

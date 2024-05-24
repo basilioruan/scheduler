@@ -6,10 +6,12 @@ import com.projects.scheduler.inbound.dtos.UserDTO;
 import com.projects.scheduler.utils.enums.ClassTypeIndicator;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
 
 import org.springframework.validation.annotation.Validated;
 
+@EqualsAndHashCode(callSuper = true)
 @SuperBuilder
 @Data
 @Validated
