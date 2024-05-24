@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 import com.projects.scheduler.inbound.dtos.UserDTO;
 import com.projects.scheduler.utils.enums.ClassTypeIndicator;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.experimental.SuperBuilder;

@@ -8,7 +8,6 @@ import com.projects.scheduler.outbound.mappers.StudentEntityMapper;
 import com.projects.scheduler.outbound.persistence.entities.StudentEntity;
 import com.projects.scheduler.outbound.persistence.repositories.StudentRepository;
 import com.projects.scheduler.utils.exceptions.SchedularRuntimeException;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Component;
@@ -24,8 +23,7 @@ public class StudentAdapter implements StudentOutPort {
 	@Override
 	public Student findById(Long id) {
 		try {
-			return this.studentEntityMapper.fromEntity(this.studentRepository.findById(id)
-				.orElseThrow(() -> new SchedularRuntimeException("Student not found")));
+			return this.studentEntityMapper.fromEntity(this.studentRepository.findById(id).orElse(null));
 		}
 		catch (Exception ex) {
 			throw new SchedularRuntimeException(ex.getMessage());

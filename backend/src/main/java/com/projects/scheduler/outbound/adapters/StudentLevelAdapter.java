@@ -9,7 +9,6 @@ import com.projects.scheduler.outbound.mappers.StudentLevelEntityMapper;
 import com.projects.scheduler.outbound.persistence.entities.StudentLevelEntity;
 import com.projects.scheduler.outbound.persistence.repositories.StudentLevelRepository;
 import com.projects.scheduler.utils.exceptions.SchedularRuntimeException;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Component;
@@ -29,11 +28,8 @@ public class StudentLevelAdapter implements StudentLevelOutPort {
 		}
 
 		try {
-			StudentLevelEntity response = this.studentLevelRepository.getReferenceById(id);
+			StudentLevelEntity response = this.studentLevelRepository.findById(id).orElse(null);
 			return this.studentLevelEntityMapper.fromEntity(response);
-		}
-		catch (EntityNotFoundException ex) {
-			return null;
 		}
 		catch (Exception ex) {
 			throw new SchedularRuntimeException(ex.getMessage());
@@ -71,12 +67,10 @@ public class StudentLevelAdapter implements StudentLevelOutPort {
 
 	@Override
 	public void deleteById(Long id) {
-		if (Objects.isNull(id)) {
-			return;
-		}
-
 		try {
-			this.studentLevelRepository.deleteById(id);
+			StudentLevelEntity studentLevelFromDB = this.studentLevelRepository.findById(id)
+				.orElseThrow(() -> new SchedularRuntimeException("Student level not found"));
+			this.studentLevelRepository.deleteById(studentLevelFromDB.getId());
 		}
 		catch (Exception ex) {
 			throw new SchedularRuntimeException(ex.getMessage());

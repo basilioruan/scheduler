@@ -54,6 +54,7 @@ public class UserEntity {
 	@Column(name = "application_user_last_login_date")
 	private LocalDateTime lastLoginDate;
 
-	public UserEntity() {}
+	public UserEntity() {
+	}
 
 }
