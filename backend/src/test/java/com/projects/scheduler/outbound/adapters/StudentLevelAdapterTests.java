@@ -9,6 +9,7 @@ import com.projects.scheduler.mocks.StudentLevelMocks;
 import com.projects.scheduler.outbound.mappers.StudentLevelEntityMapper;
 import com.projects.scheduler.outbound.persistence.repositories.StudentLevelRepository;
 import com.projects.scheduler.utils.DefaultValues;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
@@ -17,6 +18,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.times;
@@ -35,13 +37,6 @@ class StudentLevelAdapterTests {
 	private StudentLevelEntityMapper studentLevelEntityMapper;
 
 	@Test
-	void findById_shouldReturnNull() {
-		StudentLevel actual = this.studentLevelAdapter.findById(null);
-
-		assertThat(actual).isNull();
-	}
-
-	@Test
 	void findById_shouldReturnDomain() {
 		StudentLevel expected = StudentLevelMocks.getStudentLevelDomain();
 
@@ -56,12 +51,15 @@ class StudentLevelAdapterTests {
 	}
 
 	@Test
-	void findById_shouldReturnNull_whenNotFindObject() {
-		BDDMockito.when(this.studentLevelRepository.findById(anyLong())).thenReturn(Optional.empty());
+	void findById_shouldThrowEntityNotFound_whenNotFindObject() {
+		String errorMessage = "error";
 
-		StudentLevel actual = this.studentLevelAdapter.findById(DefaultValues.LONG_VALUE);
+		BDDMockito.when(this.studentLevelRepository.findById(anyLong()))
+			.thenThrow(new EntityNotFoundException(errorMessage));
 
-		assertThat(actual).isNull();
+		assertThatThrownBy(() -> this.studentLevelAdapter.findById(DefaultValues.LONG_VALUE))
+			.isInstanceOf(EntityNotFoundException.class)
+			.hasMessage(errorMessage);
 	}
 
 	@Test
