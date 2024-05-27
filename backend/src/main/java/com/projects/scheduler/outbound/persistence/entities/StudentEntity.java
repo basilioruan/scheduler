@@ -34,6 +34,11 @@ public class StudentEntity extends UserEntity {
 	@Column(name = "student_reschedules")
 	private int reschedules;
 
+	@ManyToOne
+	@JoinColumn(name = "student_teacher_id")
+	@NotNull
+	private TeacherEntity teacher;
+
 	public StudentEntity() {
 		super();
 	}

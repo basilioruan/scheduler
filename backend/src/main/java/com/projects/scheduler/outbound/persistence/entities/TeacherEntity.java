@@ -27,4 +27,8 @@ public class TeacherEntity extends UserEntity {
 	@Enumerated(EnumType.STRING)
 	private SchoolSubjectIndicator schoolSubject;
 
+	public TeacherEntity() {
+		super();
+	}
+
 }

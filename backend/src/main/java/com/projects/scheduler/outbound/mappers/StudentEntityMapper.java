@@ -14,6 +14,8 @@ public class StudentEntityMapper {
 
 	private final StudentLevelEntityMapper studentLevelEntityMapper;
 
+	private final TeacherEntityMapper teacherEntityMapper;
+
 	public Student fromEntity(StudentEntity entity) {
 		if (Objects.isNull(entity)) {
 			return null;
@@ -31,6 +33,7 @@ public class StudentEntityMapper {
 			.studentLevel(this.studentLevelEntityMapper.fromEntity(entity.getStudentLevel()))
 			.classType(entity.getClassType())
 			.reschedules(entity.getReschedules())
+			.teacher(this.teacherEntityMapper.fromEntity(entity.getTeacher()))
 			.build();
 	}
 
@@ -51,6 +54,7 @@ public class StudentEntityMapper {
 			.studentLevel(this.studentLevelEntityMapper.fromDomain(domain.getStudentLevel()))
 			.classType(domain.getClassType())
 			.reschedules(domain.getReschedules())
+			.teacher(this.teacherEntityMapper.fromDomain(domain.getTeacher()))
 			.build();
 	}
 

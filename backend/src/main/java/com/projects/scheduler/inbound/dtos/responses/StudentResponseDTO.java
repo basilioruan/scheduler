@@ -20,13 +20,17 @@ public class StudentResponseDTO extends UserDTO {
 
 	private int reschedules;
 
+	private PairIdLabelDTO teacher;
+
 	public StudentResponseDTO(Long id, @NotNull String name, @NotNull String phone, @NotNull String email, String photo,
 			LocalDateTime creationDate, LocalDateTime lastUpdateDate, LocalDateTime lastLoginDate,
-			StudentLevelResponseDTO studentLevel, @NotNull ClassTypeIndicator classType, int reschedules) {
+			StudentLevelResponseDTO studentLevel, @NotNull ClassTypeIndicator classType, int reschedules,
+			PairIdLabelDTO teacher) {
 		super(id, name, phone, email, photo, creationDate, lastUpdateDate, lastLoginDate);
 		this.studentLevel = studentLevel;
 		this.classType = classType;
 		this.reschedules = reschedules;
+		this.teacher = teacher;
 	}
 
 }

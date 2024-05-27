@@ -25,13 +25,17 @@ public class StudentRequestDTO extends UserDTO {
 
 	private int reschedules;
 
+	@NotNull(message = "Teacher must be not null")
+	private Long teacherId;
+
 	public StudentRequestDTO(Long id, @NotNull String name, @NotNull String phone, @NotNull String email, String photo,
 			LocalDateTime creationDate, LocalDateTime lastUpdateDate, LocalDateTime lastLoginDate, Long studentLevelId,
-			@NotNull ClassTypeIndicator classType, int reschedules) {
+			@NotNull ClassTypeIndicator classType, int reschedules, @NotNull Long teacherId) {
 		super(id, name, phone, email, photo, creationDate, lastUpdateDate, lastLoginDate);
 		this.studentLevelId = studentLevelId;
 		this.classType = classType;
 		this.reschedules = reschedules;
+		this.teacherId = teacherId;
 	}
 
 }

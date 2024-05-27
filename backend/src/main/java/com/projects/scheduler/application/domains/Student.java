@@ -16,4 +16,6 @@ public class Student extends User {
 
 	private int reschedules;
 
+	private Teacher teacher;
+
 }

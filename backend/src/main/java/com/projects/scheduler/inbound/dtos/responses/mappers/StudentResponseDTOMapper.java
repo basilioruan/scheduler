@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import com.projects.scheduler.application.domains.Student;
 import com.projects.scheduler.inbound.dtos.responses.StudentResponseDTO;
+import com.projects.scheduler.utils.ValueUtils;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Component;
@@ -31,6 +32,7 @@ public class StudentResponseDTOMapper {
 			.studentLevel(this.studentLevelResponseDTOMapper.fromDomain(domain.getStudentLevel()))
 			.classType(domain.getClassType())
 			.reschedules(domain.getReschedules())
+			.teacher(ValueUtils.buildPairIdLabel(domain.getTeacher().getId(), domain.getTeacher().getName()))
 			.build();
 	}
 
