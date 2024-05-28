@@ -40,6 +40,7 @@ if not exists (select * from sysobjects where name='student' and xtype='U')
         student_reschedules int NULL,
         application_user_id bigint NOT NULL,
         student_level_id bigint NULL,
+        student_teacher_id bigint NOT NULL,
         CONSTRAINT PK__student__E7546C9FAEF59463 PRIMARY KEY (application_user_id)
     );
     ALTER TABLE DB_SCHEDULER.student WITH NOCHECK ADD CONSTRAINT CK__student__student__797309D9 CHECK (([student_class_type]='IN_PERSON' OR [student_class_type]='ONLINE'));
@@ -65,7 +66,6 @@ if not exists (select * from sysobjects where name='teacher' and xtype='U')
         application_user_id bigint NOT NULL,
         CONSTRAINT PK__teacher__E7546C9FE7DA03D4 PRIMARY KEY (application_user_id)
     );
-    ALTER TABLE DB_SCHEDULER.teacher WITH NOCHECK ADD CONSTRAINT CK__teacher__teacher__7E37BEF6 CHECK (([teacher_school_subject]>=(0) AND [teacher_school_subject]<=(0)));
 go
 
 -- DB_SCHEDULER.schedule foreign keys
@@ -75,6 +75,7 @@ ALTER TABLE DB_SCHEDULER.schedule ADD CONSTRAINT FK96k9h8i4hoe9b1c6llkccwuon FOR
 
 -- DB_001_DEV.DB_SCHEDULER.student foreign keys
 
+ALTER TABLE DB_SCHEDULER.student ADD CONSTRAINT FK53q9xbb6l974fh1u4vnq0wwp FOREIGN KEY (student_teacher_id) REFERENCES DB_SCHEDULER.teacher(application_user_id);
 ALTER TABLE DB_SCHEDULER.student ADD CONSTRAINT FKkk5yli3vhkgsn1pf7usywbkh0 FOREIGN KEY (application_user_id) REFERENCES DB_SCHEDULER.application_user(application_user_id);
 ALTER TABLE DB_SCHEDULER.student ADD CONSTRAINT FKtbu12l0m51ac8csesmnma9oga FOREIGN KEY (student_level_id) REFERENCES DB_SCHEDULER.student_level(student_level_id);
 
