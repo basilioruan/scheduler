@@ -23,9 +23,6 @@ public class StudentRequestDTOMapper {
 			.phone(dto.getPhone())
 			.email(dto.getEmail())
 			.photo(dto.getPhoto())
-			.creationDate(dto.getCreationDate())
-			.lastUpdateDate(dto.getLastUpdateDate())
-			.lastLoginDate(dto.getLastLoginDate())
 			.classType(dto.getClassType())
 			.reschedules(dto.getReschedules())
 			.build();

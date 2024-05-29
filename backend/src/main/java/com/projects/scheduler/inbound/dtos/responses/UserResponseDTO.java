@@ -1,4 +1,4 @@
-package com.projects.scheduler.inbound.dtos;
+package com.projects.scheduler.inbound.dtos.responses;
 
 import java.time.LocalDateTime;
 
@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @AllArgsConstructor
 @Valid
-public abstract class UserDTO {
+public abstract class UserResponseDTO {
 
 	private Long id;
 

@@ -1,8 +1,5 @@
 package com.projects.scheduler.inbound.dtos.requests;
 
-import java.time.LocalDateTime;
-
-import com.projects.scheduler.inbound.dtos.UserDTO;
 import com.projects.scheduler.utils.enums.ClassTypeIndicator;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -15,7 +12,7 @@ import org.springframework.validation.annotation.Validated;
 @SuperBuilder
 @Data
 @Validated
-public class StudentRequestDTO extends UserDTO {
+public class StudentRequestDTO extends UserRequestDTO {
 
 	@NotNull(message = "Student level id must be not null")
 	private Long studentLevelId;
@@ -29,9 +26,8 @@ public class StudentRequestDTO extends UserDTO {
 	private Long teacherId;
 
 	public StudentRequestDTO(Long id, @NotNull String name, @NotNull String phone, @NotNull String email, String photo,
-			LocalDateTime creationDate, LocalDateTime lastUpdateDate, LocalDateTime lastLoginDate, Long studentLevelId,
-			@NotNull ClassTypeIndicator classType, int reschedules, @NotNull Long teacherId) {
-		super(id, name, phone, email, photo, creationDate, lastUpdateDate, lastLoginDate);
+			Long studentLevelId, @NotNull ClassTypeIndicator classType, int reschedules, @NotNull Long teacherId) {
+		super(id, name, phone, email, photo);
 		this.studentLevelId = studentLevelId;
 		this.classType = classType;
 		this.reschedules = reschedules;
