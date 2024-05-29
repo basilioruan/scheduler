@@ -12,8 +12,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class StudentRequestDTOMapper {
 
-	private final StudentLevelRequestDTOMapper studentLevelRequestDTOMapper;
-
 	public Student fromDTO(StudentRequestDTO dto) {
 		if (Objects.isNull(dto)) {
 			return null;
