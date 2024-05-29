@@ -30,6 +30,18 @@ public final class StudentMocks {
 			.build();
 	}
 
+	public static Student getStudentDomainFromRequestDTO() {
+		return Student.builder()
+			.id(DefaultValues.LONG_VALUE)
+			.name(DefaultValues.STRING_VALUE)
+			.phone(DefaultValues.PHONE)
+			.email(DefaultValues.EMAIL)
+			.phone(DefaultValues.STRING_VALUE)
+			.classType(ClassTypeIndicator.ONLINE)
+			.reschedules(DefaultValues.INT_VALUE)
+			.build();
+	}
+
 	public static StudentEntity getStudentEntity() {
 		return StudentEntity.builder()
 			.id(DefaultValues.LONG_VALUE)
@@ -71,9 +83,6 @@ public final class StudentMocks {
 			.phone(DefaultValues.PHONE)
 			.email(DefaultValues.EMAIL)
 			.phone(DefaultValues.STRING_VALUE)
-			.creationDate(DefaultValues.LOCAL_DATE_TIME)
-			.lastUpdateDate(DefaultValues.LOCAL_DATE_TIME)
-			.lastLoginDate(DefaultValues.LOCAL_DATE_TIME)
 			.studentLevelId(DefaultValues.LONG_VALUE)
 			.classType(ClassTypeIndicator.ONLINE)
 			.reschedules(DefaultValues.INT_VALUE)
