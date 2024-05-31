@@ -74,7 +74,8 @@ public class StudentUseCase implements StudentInPort {
 		else {
 			Student studentFromDB = this.studentOutPort.findById(student.getId());
 			if (Objects.isNull(studentFromDB)) {
-				throw new SchedularRuntimeException("Student not found");
+				throw new SchedularRuntimeException(
+						String.format("Student level was not found for parameters {id=%s}", student.getId()));
 			}
 			student.setCreationDate(studentFromDB.getCreationDate());
 		}
