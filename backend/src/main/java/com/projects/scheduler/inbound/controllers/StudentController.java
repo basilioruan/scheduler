@@ -62,7 +62,7 @@ public class StudentController {
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<String> deleteById(@NotNull(message = "Student id must be not null") @Min(value = 1,
+	public ResponseEntity<String> delete(@NotNull(message = "Student id must be not null") @Min(value = 1,
 			message = "Student id must be positive") @PathVariable Long id) {
 		try {
 			this.studentInPort.deleteById(id);
