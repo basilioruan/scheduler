@@ -31,7 +31,7 @@ public class StudentController {
 	@GetMapping("/find/{id}")
 	public ResponseEntity<StudentResponseDTO> findById(@NotNull(message = "Student id must be not null") @Min(value = 1,
 			message = "Student id must be positive") @PathVariable Long id) {
-			return ResponseEntity.ok(this.studentInPort.findById(id));
+		return ResponseEntity.ok(this.studentInPort.findById(id));
 	}
 
 	@GetMapping("/find-all")

@@ -7,7 +7,6 @@ import com.projects.scheduler.inbound.dtos.requests.StudentLevelRequestDTO;
 import com.projects.scheduler.inbound.dtos.responses.StudentLevelResponseDTO;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +35,7 @@ public class StudentLevelController {
 
 	@PostMapping("/save")
 	public ResponseEntity<StudentLevelResponseDTO> save(@RequestBody StudentLevelRequestDTO requestDTO) {
-		return new ResponseEntity<>(this.studentLevelInPort.save(requestDTO), HttpStatus.CREATED);
+		return ResponseEntity.ok(this.studentLevelInPort.save(requestDTO));
 
 	}
 
