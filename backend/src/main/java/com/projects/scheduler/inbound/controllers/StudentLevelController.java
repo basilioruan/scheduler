@@ -5,7 +5,6 @@ import java.util.List;
 import com.projects.scheduler.application.ports.inbound.StudentLevelInPort;
 import com.projects.scheduler.inbound.dtos.requests.StudentLevelRequestDTO;
 import com.projects.scheduler.inbound.dtos.responses.StudentLevelResponseDTO;
-import com.projects.scheduler.utils.exceptions.SchedularRuntimeException;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
@@ -27,43 +26,24 @@ public class StudentLevelController {
 
 	@GetMapping("/find/{id}")
 	public ResponseEntity<StudentLevelResponseDTO> findById(@PathVariable Long id) {
-		try {
-			return ResponseEntity.ok(this.studentLevelInPort.findById(id));
-		}
-		catch (SchedularRuntimeException ex) {
-			return ResponseEntity.internalServerError().build();
-		}
+		return ResponseEntity.ok(this.studentLevelInPort.findById(id));
 	}
 
 	@GetMapping("/find-all")
 	public ResponseEntity<List<StudentLevelResponseDTO>> findAll() {
-		try {
-			return ResponseEntity.ok(this.studentLevelInPort.findAll());
-		}
-		catch (SchedularRuntimeException ex) {
-			return ResponseEntity.internalServerError().build();
-		}
+		return ResponseEntity.ok(this.studentLevelInPort.findAll());
 	}
 
 	@PostMapping("/save")
 	public ResponseEntity<StudentLevelResponseDTO> save(@RequestBody StudentLevelRequestDTO requestDTO) {
-		try {
-			return new ResponseEntity<>(this.studentLevelInPort.save(requestDTO), HttpStatus.CREATED);
-		}
-		catch (SchedularRuntimeException ex) {
-			return ResponseEntity.internalServerError().build();
-		}
+		return new ResponseEntity<>(this.studentLevelInPort.save(requestDTO), HttpStatus.CREATED);
+
 	}
 
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> delete(@PathVariable Long id) {
-		try {
-			this.studentLevelInPort.deleteById(id);
-			return ResponseEntity.ok("Student level deleted!");
-		}
-		catch (SchedularRuntimeException ex) {
-			return ResponseEntity.internalServerError().build();
-		}
+		this.studentLevelInPort.deleteById(id);
+		return ResponseEntity.ok("Student level deleted!");
 	}
 
 }

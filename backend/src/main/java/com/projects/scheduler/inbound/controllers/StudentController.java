@@ -10,7 +10,6 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,45 +31,25 @@ public class StudentController {
 	@GetMapping("/find/{id}")
 	public ResponseEntity<StudentResponseDTO> findById(@NotNull(message = "Student id must be not null") @Min(value = 1,
 			message = "Student id must be positive") @PathVariable Long id) {
-		try {
 			return ResponseEntity.ok(this.studentInPort.findById(id));
-		}
-		catch (SchedularRuntimeException ex) {
-			return ResponseEntity.internalServerError().build();
-		}
 	}
 
 	@GetMapping("/find-all")
 	public ResponseEntity<List<StudentResponseDTO>> findAll() {
-		try {
-			return ResponseEntity.ok(this.studentInPort.findAll());
-		}
-		catch (SchedularRuntimeException ex) {
-			return ResponseEntity.internalServerError().build();
-		}
+		return ResponseEntity.ok(this.studentInPort.findAll());
 	}
 
 	@PostMapping("/save")
 	public ResponseEntity<StudentResponseDTO> save(
 			@RequestBody @NotNull(message = "Student must not be null") StudentRequestDTO studentRequestDTO) {
-		try {
-			return ResponseEntity.ok(this.studentInPort.save(studentRequestDTO));
-		}
-		catch (SchedularRuntimeException ex) {
-			return ResponseEntity.internalServerError().build();
-		}
+		return ResponseEntity.ok(this.studentInPort.save(studentRequestDTO));
 	}
 
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> delete(@NotNull(message = "Student id must be not null") @Min(value = 1,
 			message = "Student id must be positive") @PathVariable Long id) {
-		try {
-			this.studentInPort.deleteById(id);
-			return ResponseEntity.ok("Student deleted!");
-		}
-		catch (SchedularRuntimeException ex) {
-			return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+		this.studentInPort.deleteById(id);
+		return ResponseEntity.ok("Student deleted!");
 	}
 
 }

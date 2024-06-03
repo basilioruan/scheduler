@@ -1,5 +1,6 @@
 package com.projects.scheduler.utils.errorhandler;
 
+import com.projects.scheduler.utils.exceptions.SchedularRuntimeException;
 import jakarta.persistence.EntityNotFoundException;
 
 import org.springframework.core.Ordered;
@@ -22,6 +23,14 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	protected ResponseEntity<Object> handleEntityNotFound(EntityNotFoundException ex) {
 		ApiError apiError = new ApiError(HttpStatus.NOT_FOUND);
 		apiError.setMessage(ex.getMessage());
+		return buildResponseEntity(apiError);
+	}
+
+	@ExceptionHandler(SchedularRuntimeException.class)
+	protected ResponseEntity<Object> handleSchedularRuntime(SchedularRuntimeException ex) {
+		ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR);
+		apiError.setMessage(ex.getMessage());
+		apiError.setDebugMessage(ex.getCause().getLocalizedMessage());
 		return buildResponseEntity(apiError);
 	}
 
