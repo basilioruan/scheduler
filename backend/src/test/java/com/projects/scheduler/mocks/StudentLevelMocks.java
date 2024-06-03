@@ -3,8 +3,8 @@ package com.projects.scheduler.mocks;
 import com.projects.scheduler.application.domains.StudentLevel;
 import com.projects.scheduler.inbound.dtos.requests.StudentLevelRequestDTO;
 import com.projects.scheduler.inbound.dtos.responses.StudentLevelResponseDTO;
+import com.projects.scheduler.mocks.utils.DefaultValues;
 import com.projects.scheduler.outbound.persistence.entities.StudentLevelEntity;
-import com.projects.scheduler.utils.DefaultValues;
 
 public final class StudentLevelMocks {
 

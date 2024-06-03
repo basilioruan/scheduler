@@ -13,7 +13,7 @@ import com.projects.scheduler.inbound.dtos.responses.mappers.StudentResponseDTOM
 import com.projects.scheduler.mocks.StudentLevelMocks;
 import com.projects.scheduler.mocks.StudentMocks;
 import com.projects.scheduler.mocks.TeacherMocks;
-import com.projects.scheduler.utils.DefaultValues;
+import com.projects.scheduler.mocks.utils.DefaultValues;
 import com.projects.scheduler.utils.exceptions.SchedularRuntimeException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,4 +1,4 @@
-package com.projects.scheduler.utils;
+package com.projects.scheduler.mocks.utils;
 
 import java.time.LocalDateTime;
 

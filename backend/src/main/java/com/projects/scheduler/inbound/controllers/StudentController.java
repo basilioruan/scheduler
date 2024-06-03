@@ -5,7 +5,6 @@ import java.util.List;
 import com.projects.scheduler.application.ports.inbound.StudentInPort;
 import com.projects.scheduler.inbound.dtos.requests.StudentRequestDTO;
 import com.projects.scheduler.inbound.dtos.responses.StudentResponseDTO;
-import com.projects.scheduler.utils.exceptions.SchedularRuntimeException;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;

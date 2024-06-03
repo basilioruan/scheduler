@@ -8,7 +8,7 @@ import com.projects.scheduler.inbound.dtos.requests.mappers.StudentLevelRequestD
 import com.projects.scheduler.inbound.dtos.responses.StudentLevelResponseDTO;
 import com.projects.scheduler.inbound.dtos.responses.mappers.StudentLevelResponseDTOMapper;
 import com.projects.scheduler.mocks.StudentLevelMocks;
-import com.projects.scheduler.utils.DefaultValues;
+import com.projects.scheduler.mocks.utils.DefaultValues;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;

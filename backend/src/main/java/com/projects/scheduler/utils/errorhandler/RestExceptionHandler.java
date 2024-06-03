@@ -1,5 +1,7 @@
 package com.projects.scheduler.utils.errorhandler;
 
+import java.util.Objects;
+
 import com.projects.scheduler.utils.exceptions.SchedularRuntimeException;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -30,7 +32,9 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	protected ResponseEntity<Object> handleSchedularRuntime(SchedularRuntimeException ex) {
 		ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR);
 		apiError.setMessage(ex.getMessage());
-		apiError.setDebugMessage(ex.getCause().getLocalizedMessage());
+		if (Objects.nonNull(ex.getCause())) {
+			apiError.setDebugMessage(ex.getCause().getLocalizedMessage());
+		}
 		return buildResponseEntity(apiError);
 	}
 

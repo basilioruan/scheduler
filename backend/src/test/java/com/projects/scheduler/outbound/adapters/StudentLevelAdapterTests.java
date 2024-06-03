@@ -6,9 +6,9 @@ import java.util.Optional;
 
 import com.projects.scheduler.application.domains.StudentLevel;
 import com.projects.scheduler.mocks.StudentLevelMocks;
+import com.projects.scheduler.mocks.utils.DefaultValues;
 import com.projects.scheduler.outbound.mappers.StudentLevelEntityMapper;
 import com.projects.scheduler.outbound.persistence.repositories.StudentLevelRepository;
-import com.projects.scheduler.utils.DefaultValues;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

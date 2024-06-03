@@ -1,8 +1,8 @@
 package com.projects.scheduler.mocks;
 
 import com.projects.scheduler.application.domains.Teacher;
+import com.projects.scheduler.mocks.utils.DefaultValues;
 import com.projects.scheduler.outbound.persistence.entities.TeacherEntity;
-import com.projects.scheduler.utils.DefaultValues;
 import com.projects.scheduler.utils.enums.SchoolSubjectIndicator;
 
 public final class TeacherMocks {
