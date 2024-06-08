@@ -1,6 +1,7 @@
 package com.projects.scheduler.application.usecases;
 
 import java.util.List;
+import java.util.Objects;
 
 import com.projects.scheduler.application.domains.StudentLevel;
 import com.projects.scheduler.application.ports.inbound.StudentLevelInPort;
@@ -9,6 +10,7 @@ import com.projects.scheduler.inbound.dtos.requests.StudentLevelRequestDTO;
 import com.projects.scheduler.inbound.dtos.requests.mappers.StudentLevelRequestDTOMapper;
 import com.projects.scheduler.inbound.dtos.responses.StudentLevelResponseDTO;
 import com.projects.scheduler.inbound.dtos.responses.mappers.StudentLevelResponseDTOMapper;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
@@ -44,7 +46,18 @@ public class StudentLevelUseCase implements StudentLevelInPort {
 
 	@Override
 	public void deleteById(Long id) {
+		this.validateIfStudentLevelExist(id);
 		this.studentLevelOutPort.deleteById(id);
+	}
+
+	private StudentLevel validateIfStudentLevelExist(Long id) {
+		StudentLevel studentLevel = this.studentLevelOutPort.findById(id);
+
+		if (Objects.isNull(studentLevel)) {
+			throw new EntityNotFoundException(String.format("Student level was not found for parameters {id=%s}", id));
+		}
+
+		return studentLevel;
 	}
 
 }

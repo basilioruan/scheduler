@@ -10,7 +10,6 @@ import com.projects.scheduler.mocks.utils.DefaultValues;
 import com.projects.scheduler.outbound.mappers.StudentEntityMapper;
 import com.projects.scheduler.outbound.persistence.repositories.StudentRepository;
 import com.projects.scheduler.utils.exceptions.SchedularRuntimeException;
-import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
@@ -136,32 +135,15 @@ class StudentAdapterTests {
 
 	@Test
 	void deleteById_shouldCallRepositoryDelete() {
-		BDDMockito.when(this.studentRepository.findById(anyLong()))
-			.thenReturn(Optional.of(StudentMocks.getStudentEntity()));
-
 		this.studentAdapter.deleteById(DefaultValues.LONG_VALUE);
 
 		verify(this.studentRepository, times(1)).deleteById(anyLong());
 	}
 
 	@Test
-	void deleteById_shouldThrowAnException_whenNotFindStudent() {
-		String errorMessage = "Student not found";
-
-		BDDMockito.when(this.studentRepository.findById(anyLong()))
-			.thenThrow(new EntityNotFoundException(errorMessage));
-
-		assertThatThrownBy(() -> this.studentAdapter.deleteById(DefaultValues.LONG_VALUE))
-			.isInstanceOf(SchedularRuntimeException.class)
-			.hasMessage(errorMessage);
-	}
-
-	@Test
 	void deleteById_shouldThrowAnException_whenTryToDelete() {
 		String errorMessage = "error";
 
-		BDDMockito.when(this.studentRepository.findById(anyLong()))
-			.thenReturn(Optional.of(StudentMocks.getStudentEntity()));
 		BDDMockito.doThrow(new RuntimeException(errorMessage)).when(this.studentRepository).deleteById(anyLong());
 
 		assertThatThrownBy(() -> this.studentAdapter.deleteById(DefaultValues.LONG_VALUE))

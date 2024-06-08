@@ -56,9 +56,7 @@ public class StudentAdapter implements StudentOutPort {
 	@Override
 	public void deleteById(Long id) {
 		try {
-			StudentEntity studentFromDB = this.studentRepository.findById(id)
-				.orElseThrow(() -> new SchedularRuntimeException("Student not found"));
-			this.studentRepository.deleteById(studentFromDB.getId());
+			this.studentRepository.deleteById(id);
 		}
 		catch (Exception ex) {
 			throw new SchedularRuntimeException(ex.getMessage());

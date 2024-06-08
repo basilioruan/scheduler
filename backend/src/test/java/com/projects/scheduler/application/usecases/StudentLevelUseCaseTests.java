@@ -9,6 +9,7 @@ import com.projects.scheduler.inbound.dtos.responses.StudentLevelResponseDTO;
 import com.projects.scheduler.inbound.dtos.responses.mappers.StudentLevelResponseDTOMapper;
 import com.projects.scheduler.mocks.StudentLevelMocks;
 import com.projects.scheduler.mocks.utils.DefaultValues;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
@@ -17,6 +18,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.times;
@@ -109,9 +111,25 @@ class StudentLevelUseCaseTests {
 
 	@Test
 	void deleteById_shouldDelete() {
+		BDDMockito.when(this.studentLevelOutPort.findById(anyLong()))
+			.thenReturn(StudentLevelMocks.getStudentLevelDomain());
+
 		this.studentLevelUseCase.deleteById(DefaultValues.LONG_VALUE);
 
 		verify(this.studentLevelOutPort, times(1)).deleteById(anyLong());
+	}
+
+	@Test
+	void deleteById_shouldThrowException_whenNotFindStudentLevel() {
+		Long id = DefaultValues.LONG_VALUE;
+		String errorMessage = String.format("Student level was not found for parameters {id=%s}", id);
+
+		BDDMockito.when(this.studentLevelOutPort.findById(anyLong())).thenReturn(null);
+
+		assertThatThrownBy(() -> this.studentLevelUseCase.deleteById(id)).isInstanceOf(EntityNotFoundException.class)
+			.hasMessage(errorMessage);
+
+		verify(this.studentLevelOutPort, times(0)).deleteById(anyLong());
 	}
 
 }

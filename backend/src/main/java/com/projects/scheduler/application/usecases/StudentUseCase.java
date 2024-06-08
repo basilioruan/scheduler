@@ -53,6 +53,7 @@ public class StudentUseCase implements StudentInPort {
 
 	@Override
 	public void deleteById(Long id) {
+		this.validateIfStudentExist(id);
 		this.studentOutPort.deleteById(id);
 	}
 
@@ -72,13 +73,18 @@ public class StudentUseCase implements StudentInPort {
 			student.setCreationDate(LocalDateTime.now());
 		}
 		else {
-			Student studentFromDB = this.studentOutPort.findById(student.getId());
-			if (Objects.isNull(studentFromDB)) {
-				throw new SchedularRuntimeException(
-						String.format("Student level was not found for parameters {id=%s}", student.getId()));
-			}
-			student.setCreationDate(studentFromDB.getCreationDate());
+			Student studentFromDb = this.validateIfStudentExist(student.getId());
+			student.setCreationDate(studentFromDb.getCreationDate());
 		}
+	}
+
+	private Student validateIfStudentExist(Long id) {
+		Student studentFromDB = this.studentOutPort.findById(id);
+		if (Objects.isNull(studentFromDB)) {
+			throw new SchedularRuntimeException(
+					String.format("Student level was not found for parameters {id=%s}", id));
+		}
+		return studentFromDB;
 	}
 
 }

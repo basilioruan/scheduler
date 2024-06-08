@@ -9,7 +9,7 @@ import com.projects.scheduler.mocks.StudentLevelMocks;
 import com.projects.scheduler.mocks.utils.DefaultValues;
 import com.projects.scheduler.outbound.mappers.StudentLevelEntityMapper;
 import com.projects.scheduler.outbound.persistence.repositories.StudentLevelRepository;
-import jakarta.persistence.EntityNotFoundException;
+import com.projects.scheduler.utils.exceptions.SchedularRuntimeException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
@@ -51,14 +51,21 @@ class StudentLevelAdapterTests {
 	}
 
 	@Test
-	void findById_shouldThrowEntityNotFound_whenNotFindObject() {
-		String errorMessage = "error";
+	void findById_shouldReturnNull_whenNotFindObject() {
+		BDDMockito.when(this.studentLevelRepository.findById(anyLong())).thenReturn(Optional.empty());
 
-		BDDMockito.when(this.studentLevelRepository.findById(anyLong()))
-			.thenThrow(new EntityNotFoundException(errorMessage));
+		StudentLevel actual = this.studentLevelAdapter.findById(DefaultValues.LONG_VALUE);
+
+		assertThat(actual).isNull();
+	}
+
+	@Test
+	void findById_shouldThrowAnException() {
+		String errorMessage = "error";
+		BDDMockito.when(this.studentLevelRepository.findById(anyLong())).thenThrow(new RuntimeException(errorMessage));
 
 		assertThatThrownBy(() -> this.studentLevelAdapter.findById(DefaultValues.LONG_VALUE))
-			.isInstanceOf(EntityNotFoundException.class)
+			.isInstanceOf(SchedularRuntimeException.class)
 			.hasMessage(errorMessage);
 	}
 
@@ -86,6 +93,15 @@ class StudentLevelAdapterTests {
 	}
 
 	@Test
+	void findAll_shouldThrowAnException() {
+		String errorMessage = "error";
+		BDDMockito.when(this.studentLevelRepository.findAll()).thenThrow(new RuntimeException(errorMessage));
+
+		assertThatThrownBy(() -> this.studentLevelAdapter.findAll()).isInstanceOf(SchedularRuntimeException.class)
+			.hasMessage(errorMessage);
+	}
+
+	@Test
 	void save_shouldReturnNull() {
 		StudentLevel actual = this.studentLevelAdapter.save(null);
 
@@ -106,13 +122,32 @@ class StudentLevelAdapterTests {
 	}
 
 	@Test
-	void deleteById_shouldCallRepositoryDelete() {
-		BDDMockito.when(this.studentLevelRepository.findById(anyLong()))
-			.thenReturn(Optional.of(StudentLevelMocks.getStudentLevelEntity()));
+	void save_shouldThrowAnException() {
+		String errorMessage = "error";
+		StudentLevel studentLevelToSave = StudentLevelMocks.getStudentLevelDomain();
+		BDDMockito.when(this.studentLevelRepository.save(any())).thenThrow(new RuntimeException(errorMessage));
 
+		assertThatThrownBy(() -> this.studentLevelAdapter.save(studentLevelToSave))
+			.isInstanceOf(SchedularRuntimeException.class)
+			.hasMessage(errorMessage);
+	}
+
+	@Test
+	void deleteById_shouldCallRepositoryDelete() {
 		this.studentLevelAdapter.deleteById(DefaultValues.LONG_VALUE);
 
 		verify(this.studentLevelRepository, times(1)).deleteById(anyLong());
+	}
+
+	@Test
+	void deleteById_shouldThrowAnException() {
+		String errorMessage = "error";
+
+		BDDMockito.doThrow(new RuntimeException(errorMessage)).when(this.studentLevelRepository).deleteById(anyLong());
+
+		assertThatThrownBy(() -> this.studentLevelAdapter.deleteById(DefaultValues.LONG_VALUE))
+			.isInstanceOf(SchedularRuntimeException.class)
+			.hasMessage(errorMessage);
 	}
 
 }

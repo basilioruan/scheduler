@@ -136,9 +136,22 @@ class StudentUseCaseTests {
 
 	@Test
 	void delete_shouldCallDeletePort() {
+		BDDMockito.when(this.studentOutPort.findById(anyLong())).thenReturn(StudentMocks.getStudentDomain());
+
 		assertThatCode(() -> this.studentUseCase.deleteById(DefaultValues.LONG_VALUE)).doesNotThrowAnyException();
 
 		verify(this.studentOutPort, times(1)).deleteById(anyLong());
+	}
+
+	@Test
+	void deleteById_shouldThrowAnException_whenTryToDelete() {
+		Long id = DefaultValues.LONG_VALUE;
+		String errorMessage = String.format("Student level was not found for parameters {id=%s}", id);
+
+		BDDMockito.when(this.studentOutPort.findById(anyLong())).thenReturn(null);
+
+		assertThatThrownBy(() -> this.studentUseCase.deleteById(id)).isInstanceOf(SchedularRuntimeException.class)
+			.hasMessage(errorMessage);
 	}
 
 }
