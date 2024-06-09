@@ -67,7 +67,6 @@ public class StudentUseCase implements StudentInPort {
 
 	private void setStudentAttributes(Student student, StudentRequestDTO studentRequestDTO) {
 		student.setStudentLevel(this.getStudentLevel(studentRequestDTO.getStudentLevelId()));
-		student.setLastUpdateDate(LocalDateTime.now());
 		student.setTeacher(this.getTeacher(studentRequestDTO.getTeacherId()));
 		if (Objects.isNull(student.getId())) {
 			student.setCreationDate(LocalDateTime.now());
@@ -76,13 +75,13 @@ public class StudentUseCase implements StudentInPort {
 			Student studentFromDb = this.validateIfStudentExist(student.getId());
 			student.setCreationDate(studentFromDb.getCreationDate());
 		}
+		student.setLastUpdateDate(LocalDateTime.now());
 	}
 
 	private Student validateIfStudentExist(Long id) {
 		Student studentFromDB = this.studentOutPort.findById(id);
 		if (Objects.isNull(studentFromDB)) {
-			throw new SchedularRuntimeException(
-					String.format("Student level was not found for parameters {id=%s}", id));
+			throw new SchedularRuntimeException(String.format("Student was not found for parameters {id=%s}", id));
 		}
 		return studentFromDB;
 	}
