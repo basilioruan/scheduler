@@ -79,7 +79,7 @@ class StudentUseCaseTests {
 
 	@Test
 	void save_shouldThrowRuntimeException() {
-		String expectedMessage = String.format("Student level was not found for parameters {id=%s}",
+		String expectedMessage = String.format("Student was not found for parameters {id=%s}",
 				DefaultValues.LONG_VALUE);
 		StudentRequestDTO requestDTO = StudentMocks.getStudentRequestDTO();
 
@@ -146,7 +146,7 @@ class StudentUseCaseTests {
 	@Test
 	void deleteById_shouldThrowAnException_whenTryToDelete() {
 		Long id = DefaultValues.LONG_VALUE;
-		String errorMessage = String.format("Student level was not found for parameters {id=%s}", id);
+		String errorMessage = String.format("Student was not found for parameters {id=%s}", id);
 
 		BDDMockito.when(this.studentOutPort.findById(anyLong())).thenReturn(null);
 
