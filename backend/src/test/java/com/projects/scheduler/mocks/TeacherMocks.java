@@ -25,6 +25,17 @@ public final class TeacherMocks {
 			.build();
 	}
 
+	public static Teacher getTeacherDomainFromRequestDTO() {
+		return Teacher.builder()
+				.id(DefaultValues.LONG_VALUE)
+				.name(DefaultValues.STRING_VALUE)
+				.phone(DefaultValues.PHONE)
+				.email(DefaultValues.EMAIL)
+				.phone(DefaultValues.STRING_VALUE)
+				.schoolSubject(SchoolSubjectIndicator.ENGLISH)
+				.build();
+	}
+
 	public static TeacherEntity getTeacherEntity() {
 		return TeacherEntity.builder()
 			.id(DefaultValues.LONG_VALUE)
