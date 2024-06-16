@@ -1,6 +1,7 @@
 package com.projects.scheduler.mocks;
 
 import com.projects.scheduler.application.domains.Teacher;
+import com.projects.scheduler.inbound.dtos.requests.TeacherRequestDTO;
 import com.projects.scheduler.mocks.utils.DefaultValues;
 import com.projects.scheduler.outbound.persistence.entities.TeacherEntity;
 import com.projects.scheduler.utils.enums.SchoolSubjectIndicator;
@@ -27,13 +28,13 @@ public final class TeacherMocks {
 
 	public static Teacher getTeacherDomainFromRequestDTO() {
 		return Teacher.builder()
-				.id(DefaultValues.LONG_VALUE)
-				.name(DefaultValues.STRING_VALUE)
-				.phone(DefaultValues.PHONE)
-				.email(DefaultValues.EMAIL)
-				.phone(DefaultValues.STRING_VALUE)
-				.schoolSubject(SchoolSubjectIndicator.ENGLISH)
-				.build();
+			.id(DefaultValues.LONG_VALUE)
+			.name(DefaultValues.STRING_VALUE)
+			.phone(DefaultValues.PHONE)
+			.email(DefaultValues.EMAIL)
+			.photo(DefaultValues.STRING_VALUE)
+			.schoolSubject(SchoolSubjectIndicator.ENGLISH)
+			.build();
 	}
 
 	public static TeacherEntity getTeacherEntity() {
@@ -46,6 +47,17 @@ public final class TeacherMocks {
 			.creationDate(DefaultValues.LOCAL_DATE_TIME)
 			.lastUpdateDate(DefaultValues.LOCAL_DATE_TIME)
 			.lastLoginDate(DefaultValues.LOCAL_DATE_TIME)
+			.schoolSubject(SchoolSubjectIndicator.ENGLISH)
+			.build();
+	}
+
+	public static TeacherRequestDTO getTeacherRequestDTO() {
+		return TeacherRequestDTO.builder()
+			.id(DefaultValues.LONG_VALUE)
+			.name(DefaultValues.STRING_VALUE)
+			.phone(DefaultValues.PHONE)
+			.email(DefaultValues.EMAIL)
+			.photo(DefaultValues.STRING_VALUE)
 			.schoolSubject(SchoolSubjectIndicator.ENGLISH)
 			.build();
 	}
