@@ -70,7 +70,7 @@ public class ScheduleUseCase implements ScheduleInPort {
 	public void deleteById(Long id) {
 		try {
 			this.validateIfScheduleExist(id);
-			this.deleteById(id);
+			this.scheduleOutPort.deleteById(id);
 		}
 		catch (Exception ex) {
 			throw new SchedularRuntimeException(ex.getMessage());
@@ -110,6 +110,10 @@ public class ScheduleUseCase implements ScheduleInPort {
 	}
 
 	private Student getStudent(Long studentId) {
+		if (Objects.isNull(studentId)) {
+			return null;
+		}
+
 		Student student = this.studentOutPort.findById(studentId);
 
 		if (Objects.isNull(student)) {
